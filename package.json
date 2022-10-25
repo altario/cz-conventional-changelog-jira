@@ -1,0 +1,58 @@
+{
+  "name": "@altar-io/cz-conventional-changelog-jira",
+  "version": "0.0.0-semantically-released",
+  "description": "Commitizen adapter following the conventional-changelog format and also asking for JIRA issue.",
+  "main": "index.js",
+  "scripts": {
+    "commit": "git-cz",
+    "test": "mocha *.test.js",
+    "format": "prettier --write *.js",
+    "semantic-release": "semantic-release"
+  },
+  "homepage": "https://github.com/altario/cz-conventional-changelog-jira",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/altario/cz-conventional-changelog-jira.git"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 10"
+  },
+  "author": "André Pinto <a.pinix@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "boxen": "^5.1.2",
+    "chalk": "^2.4.1",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "inquirer": "^8.2.5",
+    "lodash.map": "^4.6.0",
+    "longest": "^2.0.1",
+    "right-pad": "^1.0.1",
+    "word-wrap": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.3.6",
+    "cosmiconfig": "^5.2.1",
+    "mocha": "^10.1.0",
+    "mock-require": "^3.0.3",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5",
+    "semver": "^6.2.0"
+  },
+  "optionalDependencies": {
+    "@commitlint/load": ">6.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./index.js",
+      "jiraMode": false,
+      "skipScope": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
