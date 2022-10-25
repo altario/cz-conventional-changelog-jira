@@ -36,16 +36,12 @@ module.exports = options => {
     switch (location) {
       case 'pre-type':
         return jiraWithDecorators + type + scope + ': ' + subject;
-        break;
       case 'pre-description':
         return type + scope + ': ' + jiraWithDecorators + subject;
-        break;
       case 'post-description':
         return type + scope + ': ' + subject + ' ' + jiraWithDecorators;
-        break;
       case 'post-body':
         return type + scope + ': ' + subject;
-        break;
       default:
         return type + scope + ': ' + jiraWithDecorators + subject;
     }
