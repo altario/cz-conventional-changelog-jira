@@ -45,6 +45,11 @@
   "optionalDependencies": {
     "@commitlint/load": ">6.1.1"
   },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
   "config": {
     "commitizen": {
       "path": "./index.js",
