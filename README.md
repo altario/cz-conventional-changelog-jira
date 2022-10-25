@@ -12,6 +12,10 @@ Part of the [commitizen](https://github.com/commitizen/cz-cli) family. Prompts f
 - Works seamlessly with Jira smart commits
 - Automatically detects the Jira issue from the branch name
 
+## Preview
+
+![preview](/images/demo.gif)
+
 ## Quickstart
 
 ### Installation
