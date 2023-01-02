@@ -107,11 +107,29 @@ module.exports = options => {
           pageSize: choices.length,
         },
         {
+          type: hasScopes ? 'list' : 'input',
+          name: 'scope',
+          when: !options.skipScope,
+          choices: hasScopes ? scopes : undefined,
+          message: `What is the scope of this change (e.g. component or file name):${hasScopes ? ' (select from the list)' : ''}`,
+          default: options.defaultScope,
+          validate: (value) => {
+            if (value.trim().length === 0) {
+              return 'Scope is required';
+            }
+
+            return value.trim().length > 0;
+          },
+          filter: (value) => {
+            return value.trim().toLowerCase();
+          },
+        },
+        {
           type: 'input',
           name: 'jira',
-          message: `Enter JIRA issue ${getFromOptionsOrDefaults('jiraPrepend') || ''}${getFromOptionsOrDefaults('jiraPrefix')}-123${getFromOptionsOrDefaults('jiraAppend') || ''}${options.jiraOptional ? ' (optional)' : ''}:`,
+          message: `Enter JIRA issue (ex: ${options.jiraPrefix}-123${options.jiraMultipleIssues ? ` or multiple: ${options.jiraPrefix}-123, ${options.jiraPrefix}-456`: ''})${options.jiraOptional ? ' (optional)' : ''}:`,
           when: options.jiraMode,
-          default: jiraIssue || '',
+          default: jiraIssue || null,
           validate: (value) => {
             const isMultpleIssues = options.jiraMultipleIssues;
             const jiraPrefix = options.jiraPrefix;
@@ -135,24 +153,6 @@ module.exports = options => {
           },
           filter: (value) => {
             return value.toUpperCase();
-          },
-        },
-        {
-          type: hasScopes ? 'list' : 'input',
-          name: 'scope',
-          when: !options.skipScope,
-          choices: hasScopes ? scopes : undefined,
-          message: `What is the scope of this change (e.g. component or file name):${hasScopes ? ' (select from the list)' : ''}`,
-          default: options.defaultScope,
-          validate: (value) => {
-            if (value.trim().length === 0) {
-              return 'Scope is required';
-            }
-
-            return value.trim().length > 0;
-          },
-          filter: (value) => {
-            return value.trim().toLowerCase();
           },
         },
         {

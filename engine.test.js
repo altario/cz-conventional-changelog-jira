@@ -26,6 +26,7 @@ const scope = 'everything';
 const customScope = 'custom scope';
 const letterTransformIndex = 0;
 const fakeJiraIssueNumber = '123';
+const fakeJiraIssueNumber2 = '456';
 const jira = `${jiraTag.toLowerCase().substring(0, letterTransformIndex) + jiraTag.toLowerCase().substring(letterTransformIndex, letterTransformIndex + 1).toUpperCase() + jiraTag.toLowerCase().substring(letterTransformIndex + 1)}-${fakeJiraIssueNumber}`;
 const jiraUpperCase = `${jiraTag}-${fakeJiraIssueNumber}`;
 const subject = `testing${fakeJiraIssueNumber}`;
@@ -638,11 +639,14 @@ describe('commitlint config header-max-length', () => {
 });
 
 describe('questions', () => {
-  it('default jira question', () => {
-    expect(questionPrompt('jira')).to.be.eq(`Enter JIRA issue ${jiraPrepend || ''}${jiraTag}-${fakeJiraIssueNumber}${jiraAppend || ''}:`);
+  it('default jira question (single JIRA tag)', () => {
+    expect(questionPrompt('jira', [], { jiraPrefix: jiraTag, jiraMultipleIssues: false })).to.be.eq(`Enter JIRA issue (ex: ${jiraTag}-${fakeJiraIssueNumber}):`);
+  });
+  it('default jira question (multiple JIRA tags)', () => {
+    expect(questionPrompt('jira', [], { jiraPrefix: jiraTag, jiraMultipleIssues: true })).to.be.eq(`Enter JIRA issue (ex: ${jiraTag}-${fakeJiraIssueNumber} or multiple: ${jiraTag}-${fakeJiraIssueNumber}, ${jiraTag}-${fakeJiraIssueNumber2}):`);
   });
   it('optional jira question', () => {
-    expect(questionPrompt('jira', [], { jiraOptional: true })).to.be.eq(`Enter JIRA issue ${jiraPrepend || ''}${jiraTag}-${fakeJiraIssueNumber}${jiraAppend || ''} (optional):`);
+    expect(questionPrompt('jira', [], { jiraPrefix: jiraTag, jiraOptional: true })).to.be.eq(`Enter JIRA issue (ex: ${jiraTag}-${fakeJiraIssueNumber}) (optional):`);
   });
   it('scope with list', () => {
     expect(questionPrompt('scope', [], { scopes: ['scope1', 'scope2'] })).to.be.eq(
